@@ -1,0 +1,48 @@
+--1
+Select
+From Employee;
+--2
+SELECT Lname, Fname
+From Employee
+Where SEX = 'F';
+--3
+Select Lname, Fname
+From EMployee
+order By 'ASC';
+--4
+Select DNO, Count(*), Sum(salary)
+From Employee
+Group By DNO;
+--5
+SELECT e.emp_last_name, e.emp_first_name, d.dept_name, d.location
+FROM Employee e
+JOIN Department d ON e.dept_no = d.dept_no
+ORDER BY d.location ASC;
+--6
+SELECT p.project_name, e.emp_last_name, w.hours_worked
+FROM Works_on w
+JOIN Project p ON w.project_no = p.project_no
+JOIN Employee e ON w.emp_id = e.emp_id
+ORDER BY p.project_name ASC, e.emp_last_name DESC;
+--7
+SELECT e.emp_last_name AS "Employee Last Name", s.emp_last_name AS "Supervisor Last
+Name"
+FROM Employee e
+JOIN Employee s ON e.manager_id = s.emp_id;
+--8
+SELECT emp_first_name, emp_last_name
+FROM Employee
+WHERE emp_id IN (SELECT emp_id FROM Dependent WHERE dependent_name = 'Alice');
+--9
+SELECT e.emp_first_name, e.emp_last_name
+FROM Employee e
+JOIN Works_on w ON e.emp_id = w.emp_id
+WHERE w.hours_worked >= 20;
+--10
+SELECT e.emp_first_name, e.emp_last_name
+FROM Employee e
+WHERE e.emp_id IN (
+SELECT emp_id
+FROM Dependent
+GROUP BY emp_id
+HAVING COUNT(dependent_id) >= 2;
